@@ -9,6 +9,7 @@ const {
   findContact,
   addContact,
   cekDuplikat,
+  deleteContact,
 } = require('./utils/contact');
 
 const app = express();
@@ -102,6 +103,19 @@ app.post('/contact', [
     addContact(req.body);
     // Kirim flash message
     req.flash('msg', 'Data contact berhasil ditambahkan');
+    res.redirect('/contact');
+  }
+});
+
+app.get('/contact/delete/:nama', (req, res) => {
+  const contact = findContact(req.params.nama);
+
+  if (!contact) {
+    res.status(404);
+    res.send('<h1>404</h1>');
+  } else {
+    deleteContact(req.params.nama);
+    req.flash('msg', 'Data contact berhasil dihapus');
     res.redirect('/contact');
   }
 });
