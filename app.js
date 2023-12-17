@@ -1,5 +1,6 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
+const { loadContact } = require('./utils/contact');
 
 const app = express();
 const port = 3000;
@@ -39,9 +40,11 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/contact', (req, res) => {
+  const contacts = loadContact();
   res.render('contact', {
     layout: 'layouts/main-layout',
     title: 'Halaman Contact',
+    contacts,
   });
 });
 
