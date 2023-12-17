@@ -1,6 +1,6 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
-const { loadContact, findContact } = require('./utils/contact');
+const { loadContact, findContact, addContact } = require('./utils/contact');
 
 const app = express();
 const port = 3000;
@@ -8,6 +8,7 @@ const port = 3000;
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
 app.use(express.static('public'));
+app.use(express.urlencoded());
 
 app.get('/', (req, res) => {
   const mahasiswa = [
@@ -48,6 +49,18 @@ app.get('/contact', (req, res) => {
   });
 });
 
+app.get('/contact/add', (req, res) => {
+  res.render('add-contact', {
+    title: 'Halaman Add Contact',
+    layout: 'layouts/main-layout',
+  });
+});
+
+app.post('/contact', (req, res) => {
+  addContact(req.body);
+  res.redirect('/contact');
+});
+
 app.get('/contact/:nama', (req, res) => {
   const contact = findContact(req.params.nama);
 
@@ -60,7 +73,7 @@ app.get('/contact/:nama', (req, res) => {
 
 app.use((req, res) => {
   res.status(404);
-  res.send('<h1>404</h1>?');
+  res.send('<h1>404</h1>');
 });
 
 app.listen(port, () => {

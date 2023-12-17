@@ -1,12 +1,5 @@
 [
-  {
-    "nama": "Fauzan",
-    "nohp": "082293132106",
-    "email": "fauzan.azhar2798@gmail.com"
-  },
-  {
-    "nama": "Risyadu",
-    "nohp": "082273629492",
-    "email": "risyadul@gmail.com"
-  }
+  {"nama":"Fauzan","nohp":"082293132106","email":"fauzan.azhar2798@gmail.com"}
+  ,
+  {"nama":"Risyadu","nohp":"082273629492","email":"risyadul@gmail.com"},{"nama":"Yaya","nohp":"082293132324","email":"Yaya@gmail.com"}
 ]
