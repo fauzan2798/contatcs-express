@@ -17,4 +17,10 @@ const loadContact = () => {
   return contacts;
 };
 
-module.exports = { loadContact };
+const findContact = (nama) => {
+  const contacts = loadContact();
+  const contact = contacts.find((cont) => cont.nama.toLowerCase() === nama.toLowerCase());
+  return contact;
+};
+
+module.exports = { loadContact, findContact };

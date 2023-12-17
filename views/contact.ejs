@@ -6,20 +6,29 @@
             <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">No.</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Mobile Phone</th>
+                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
+                    <% if (contacts.length === 0) { %>
+                        <tr>
+                            <td colspan="4">
+                            <div class="alert alert-danger" role="alert">
+                                Contact still empty.
+                            </div>
+                            </td>
+                        </tr>
+                    <% } %>
                     <% contacts.forEach((contact, i) => { %>
                         <tr>
                             <th scope="row"><%= ++i %></th>
                             <td><%= contact.nama %></td>
                             <td><%= contact.nohp %></td>
                             <td>
-                                <a href="" class="btn btn-success badge rounded-pill"><i class="bi bi-info-circle"></i> detail</a>
+                                <a href="/contact/<%= contact.nama %>" class="btn btn-success badge rounded-pill"><i class="bi bi-info-circle"></i> detail</a>
                             </td>
                           </tr>
                     <% }) %>
