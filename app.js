@@ -1,5 +1,8 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
+const flash = require('connect-flash');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const { body, check, validationResult } = require('express-validator');
 const {
   loadContact,
@@ -15,6 +18,16 @@ app.set('view engine', 'ejs');
 app.use(expressLayouts);
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser('secret'));
+app.use(
+  session({
+    cookie: { maxAge: 6000 },
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
+  }),
+);
+app.use(flash());
 
 app.get('/', (req, res) => {
   const mahasiswa = [
@@ -52,6 +65,7 @@ app.get('/contact', (req, res) => {
     layout: 'layouts/main-layout',
     title: 'Halaman Contact',
     contacts,
+    msg: req.flash('msg'),
   });
 });
 
@@ -86,6 +100,8 @@ app.post('/contact', [
     });
   } else {
     addContact(req.body);
+    // Kirim flash message
+    req.flash('msg', 'Data contact berhasil ditambahkan');
     res.redirect('/contact');
   }
 });
